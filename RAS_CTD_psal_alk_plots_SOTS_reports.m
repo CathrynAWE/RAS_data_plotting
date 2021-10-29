@@ -195,9 +195,9 @@ ylim([Talk_min, Talk_max]);
 t = title({deployment_code ;'\rm \color[rgb]{0 0.4470 0.7410}Salinity  \color[rgb]{0.8500 0.3250 0.0980}Alkalinity'; '\rm \color[rgb]{black}QC flag 1 = line, QC flag 2 = circle, QC flag 3 = diamond, QC flag 4 = square'},'Interpreter','tex');
 %t = title({deployment_code ;'\rm \color[rgb]{0 0.4470 0.7410}NO_{x}   \color[rgb]{0.8500 0.3250 0.0980}Phosphate   \color[rgb]{0.9290 0.6940 0.1250}Silicate'; '\rm \color[rgb]{black}QC flag 1 = line, QC flag 2 = circle, QC flag 3 = diamond, QC flag 4 = square'},'Interpreter','tex');
 
-figurename = [deployment_code '-RAS-Alk-sal-report_plot.png'];
-figure_path = 'C:\Users\cawynn\OneDrive - University of Tasmania\Documents\GitHub\RAS_data_plotting\RAS_data_plotting\figures'
-cd(figure_path)
-print(fig, '-dpng', figurename)
+% figurename = [deployment_code '-RAS-Alk-sal-report_plot.png'];
+% figure_path = 'C:\Users\cawynn\OneDrive - University of Tasmania\Documents\GitHub\RAS_data_plotting\RAS_data_plotting\figures'
+% cd(figure_path)
+%print(fig, '-dpng', figurename)
 
 
