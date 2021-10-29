@@ -184,8 +184,8 @@ else
 
             else
                 disp('nearest bottle more than 10m away')
-            end
-    end
+     end
+end
 end
 grid on
 yyaxis left
