@@ -260,7 +260,8 @@ yyaxis left
 ylim([0 , 20]);
 yyaxis right
 ylim([0 , 6]);
-
 end
-
-%print( fig, '-dpng', figurename);
+figurename = [deployment_code '-RAS-nuts-report_plot.png'];
+figure_path = 'C:\Users\cawynn\OneDrive - University of Tasmania\Documents\GitHub\RAS_data_plotting\RAS_data_plotting\figures'
+cd(figure_path)
+print( fig, '-dpng', figurename);
