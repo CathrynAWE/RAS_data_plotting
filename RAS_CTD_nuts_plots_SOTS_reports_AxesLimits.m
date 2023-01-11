@@ -11,13 +11,14 @@ addpath(genpath(folder));
 
 
 % set the voyage IDs to compare with 
-%voyageID = {'in2020_V09'};% 'in2021_V02'};
-voyageID = {'in2019_V02'; 'in2020_V09'};
+voyageID = {'in2021_v02'; 'in2022_v03'};
+% voyageID = {'in2019_V02'; 'in2020_V09'};
 % RAS data path
-search_path = 'C:\Users\cawynn\cloudstor\Shared\RAS share';
+% search_path = 'C:\Users\cawynn\cloudstor\Shared\RAS share';
+search_path = 'C:\Users\cawynn\OneDrive - University of Tasmania\Desktop';
 cd(search_path)
-%files = dir('IMOS_DWM-SOTS_KPSRT_20200906_SOFS_FV01_SOFS-9-2020-RAS-3-48-500-5.3m_END-20200924_C-20211001.nc');
-files = dir('IMOS_DWM-SOTS_KPSRT_20190331_SOFS_FV01_SOFS-8-2019-RAS3-48-500FH-5.3m_END-20200410_C-20210922.nc');
+files = dir('IMOS_DWM-SOTS_KPSRT_20210420_SOFS_FV01_SOFS-10-2021-RAS-3-48-500-5m_END-20220501_C-20221202.nc');
+% files = dir('RAS11_SOFS9\IMOS_DWM*RAS*.nc');
 
 
 % set the CTD bottle depth to compare with RAS data
@@ -117,7 +118,7 @@ end
 
 % first get all the CTD files together, hyrdo and sensor data
 for i = 1:size(voyageID,1)
-    search_path = ['C:\Users\cawynn\cloudstor\Shared\CTD\' voyageID{i}];
+    search_path = ['C:\Users\cawynn\cloudstor\CTD\' voyageID{i}];
     cd(search_path)
     f = dir('*Hydro*.nc');
     CTDhydro{1,i} = f;
