@@ -10,13 +10,17 @@ folder = fileparts('C:\Users\cawynn\OneDrive - University of Tasmania\Documents\
 addpath(genpath(folder));
 
 % set the voyage IDs to compare with 
-voyageID = {'in2020_V09'};% 'in2021_V02'};
-% voyageID = {'in2019_V02'; 'in2020_V09'};
+% voyageID = {'in2021_V02'};% 'in2021_V02'};
+voyageID = {'in2021_V02'; 'in2022_V03'};
 % RAS data path
-search_path = 'C:\Users\cawynn\cloudstor\Shared\RAS share';
+% search_path = 'C:\Users\cawynn\cloudstor\Shared\RAS share';
+% cd(search_path)
+search_path = 'C:\Users\wyn028\OneDrive - CSIRO\Desktop';
 cd(search_path)
+
 %files = dir('IMOS_DWM-SOTS_KPSRT_20200906_SOFS_FV01_SOFS-9-2020-RAS-3-48-500-5.3m_END-20200924_C-20211001.nc');
-files = dir('RAS11_SOFS9\IMOS_DWM*RAS*.nc');
+%files = dir('RAS11_SOFS9\IMOS_DWM*RAS*.nc');
+files = dir('IMOS_DWM*RAS*.nc');
 
 
 % set the CTD bottle depth to compare with RAS data
@@ -119,7 +123,7 @@ end
 
 % next add the CTD data
 % first get relevant Alk / salinity data
-Alk_file = 'C:\Users\cawynn\cloudstor\Shared\CTD\DIC_Alk\DIC_Alk_compilation.xlsx';
+Alk_file = 'C:\Users\wyn028\cloudstor\CTD\DIC_Alk\DIC_Alk_compilation.xlsx';
 Alk_data = readtable(Alk_file);
 data=[];
 for i = 1:length(voyageID)
@@ -133,31 +137,31 @@ data(data.Long-lon_m >= lon_t,:) = [];
 if isempty(data)
     disp('no CTD cast close enough')
 else
-    % use SOMMA salinity when sensor salinity not available
+%     use SOMMA salinity when sensor salinity not available
     data.Psal(isnan(data.Psal)) = data.SOMMAPsal(isnan(data.Psal));
     date=datetime(data.Date,'InputFormat','yyyy-mm-dd HH:MM:SS');
     data.Date_2 = date;
-    % now split the data frame into a structure, one per cast
-    % a complicated way of getting the number of rows per cast
-   
+%     now split the data frame into a structure, one per cast
+%     a complicated way of getting the number of rows per cast
+%    
     [uv,idx] = unique(date);
     for i = 1:length(idx)-1
         r(i) = idx(i+1)-idx(i);
     end
     r=r';
     r(end+1) = length(date)+1-idx(end);
-    % so that I can feed that information into the function mat2cell
+%     so that I can feed that information into the function mat2cell
     data_n = mat2cell(data, r, size(data,2));
         
 % now add salinity and alkalinity to the RAS plot
-% cl = get(groot,'defaultAxesColorOrder');
-    % only use the bottle closest to 10m
+cl = get(groot,'defaultAxesColorOrder');
+%     only use the bottle closest to 10m
     for s = 1:size(data_n,1)
            [idx,d] = knnsearch(data_n{s}.Pres, comp_depth);
-        % limit the search to +- 10m
+%         limit the search to +- 10m
             if d <= comp_depth_t
                 plottingDate = data_n{s}.Date_2(idx);
-         % plot the data with line through good data
+%          plot the data with line through good data
                 yyaxis left % salinity
                 PSAL = data_n{s}.Psal(idx);
                 PSALmsk_max = PSAL > Sal_max; 
@@ -193,10 +197,10 @@ ylim([Sal_min , Sal_max]);
 yyaxis right
 ylim([Talk_min, Talk_max]);
 t = title({deployment_code ;'\rm \color[rgb]{0 0.4470 0.7410}Salinity  \color[rgb]{0.8500 0.3250 0.0980}Alkalinity'; '\rm \color[rgb]{black}QC flag 1 = line, QC flag 2 = circle, QC flag 3 = diamond, QC flag 4 = square'},'Interpreter','tex');
-%t = title({deployment_code ;'\rm \color[rgb]{0 0.4470 0.7410}NO_{x}   \color[rgb]{0.8500 0.3250 0.0980}Phosphate   \color[rgb]{0.9290 0.6940 0.1250}Silicate'; '\rm \color[rgb]{black}QC flag 1 = line, QC flag 2 = circle, QC flag 3 = diamond, QC flag 4 = square'},'Interpreter','tex');
+% t = title({deployment_code ;'\rm \color[rgb]{0 0.4470 0.7410}NO_{x}   \color[rgb]{0.8500 0.3250 0.0980}Phosphate   \color[rgb]{0.9290 0.6940 0.1250}Silicate'; '\rm \color[rgb]{black}QC flag 1 = line, QC flag 2 = circle, QC flag 3 = diamond, QC flag 4 = square'},'Interpreter','tex');
 
 figurename = [deployment_code '-RAS-Alk-sal-report_plot.png'];
-figure_path = 'C:\Users\cawynn\OneDrive - University of Tasmania\Documents\GitHub\RAS_data_plotting\RAS_data_plotting\figures'
+figure_path = 'C:\Users\wyn028\OneDrive - CSIRO\Documents\GitHub\RAS_data_plotting\figures'
 cd(figure_path)
 print(fig, '-dpng', figurename)
 
