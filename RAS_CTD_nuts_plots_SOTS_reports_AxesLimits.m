@@ -5,7 +5,7 @@ clear;
 close all;
 
 % add gsw functions for conversion of umol/l to umol/kg (CTD only)
-folder = fileparts('C:\Users\cawynn\OneDrive - University of Tasmania\Documents\MATLAB\gsw_matlab_v3_06_13'); 
+folder = fileparts('C:\Users\wyn028\OneDrive - CSIRO\Documents\MATLAB\gsw_matlab_v3_06_13'); 
 
 addpath(genpath(folder));
 
